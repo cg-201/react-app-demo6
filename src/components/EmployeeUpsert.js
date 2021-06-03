@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { createEmployeeAction } from "../redux/EmpoyeeReducer";
 
 export function EmployeeUpsert() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -38,8 +40,12 @@ export function EmployeeUpsert() {
       })
     );
 
-    // sucess
+    // A1 sucess
     setSuccessOperation(true);
+    setTimeout(() => setSuccessOperation(false), 5000);
+
+    // A2: navigate to another page
+    // history.push("/list-employee");
 
     // reset the form
     setFirstName("");
