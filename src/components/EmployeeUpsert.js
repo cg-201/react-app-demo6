@@ -1,18 +1,20 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createEmployeeAction } from "../redux/EmpoyeeReducer";
 
 export function EmployeeUpsert() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const state = useSelector((state) => state);
+  console.log(state);
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [firstName, setFirstName] = useState(state.employee.refemp.firstName);
+  const [lastName, setLastName] = useState(state.employee.refemp.lastName);
+  const [userName, setUserName] = useState(state.employee.refemp.userName);
+  const [password, setPassword] = useState(state.employee.refemp.password);
+  const [email, setEmail] = useState(state.employee.refemp.email);
+  const [mobile, setMobile] = useState(state.employee.refemp.mobile);
 
   const [successOperation, setSuccessOperation] = useState(false);
   const [errorOperation, setErrorOperation] = useState(false);
@@ -60,7 +62,11 @@ export function EmployeeUpsert() {
     <div className="row">
       <div className="col-3 col-md-3 d-none d-md-block"></div>
       <div className="col-12 col-md-6">
-        <h3 className="alert alert-secondary">Crate Employee</h3>
+        <h3 className="alert alert-secondary">
+          {state.employee.refemp.userName
+            ? "Update Employee"
+            : "Create Employee"}
+        </h3>
 
         {/** BELOW THESE TWO TAGS MUST BE CONDITIOANL */}
         {successOperation && (
@@ -128,12 +134,21 @@ export function EmployeeUpsert() {
         </div>
 
         <div className="mb-1">
-          <input
-            type="button"
-            className="btn btn-secondary w-100"
-            value="Add Employee"
-            onClick={(e) => addEmployee(e)}
-          />
+          {state.employee.refemp.userName ? (
+            <input
+              type="button"
+              className="btn btn-secondary w-100"
+              value="Update Employee"
+              onClick={() => {}}
+            />
+          ) : (
+            <input
+              type="button"
+              className="btn btn-secondary w-100"
+              value="Add Employee"
+              onClick={(e) => addEmployee(e)}
+            />
+          )}
         </div>
       </div>
       <div className="col-3 col-md-3  d-none d-md-block"></div>

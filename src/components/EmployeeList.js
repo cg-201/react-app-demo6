@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { deleteEmployeeAction } from "../redux/EmpoyeeReducer";
+import {
+  deleteEmployeeAction,
+  updateRefEmployee,
+} from "../redux/EmpoyeeReducer";
 
 export function EmployeeList() {
   const state = useSelector((state) => state);
@@ -18,7 +21,11 @@ export function EmployeeList() {
     setTimeout(() => setSuccessOperation(false), 2000);
   };
 
-  const updateEmployee = () => {
+  const updateEmployee = (item) => {
+    // we are doing this so that we can access this objec in the form page
+    dispatch(updateRefEmployee(item));
+
+    // form page
     history.push("/create-employee");
   };
 
@@ -54,7 +61,7 @@ export function EmployeeList() {
                 <td>
                   <input
                     type="button"
-                    onClick={() => updateEmployee()}
+                    onClick={() => updateEmployee(item)}
                     value="Edit"
                     className="btn btn-link"
                   />{" "}

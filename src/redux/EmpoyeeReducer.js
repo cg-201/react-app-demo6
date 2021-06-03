@@ -1,6 +1,7 @@
 const initState = {
   list: [],
 
+  refemp: {},
   sampleList: ["Delhi", "Kolkata", "Chennai", "Mumbai"],
 };
 
@@ -10,6 +11,8 @@ const EMPLOYEE_UPDATE = "EMPLOYEE_UPDATE";
 const EMPLOYEE_DELETE = "EMPLOYEE_DELETE";
 const EMPLOYEE_GET_ALL = "EMPLOYEE_GET_ALL";
 const EMPLOYEE_GET_BY_ID = "EMPLOYEE_GET_BY_ID";
+
+const REF_EMPLOYEE = "REF_EMPLOYEE";
 
 // ACTIONS ::
 export function createEmployeeAction(payload) {
@@ -30,6 +33,10 @@ export function getAllEmployeeAction(payload) {
 
 export function getByIdEmployeeAction(payload) {
   return { type: EMPLOYEE_GET_BY_ID, payload: payload };
+}
+
+export function updateRefEmployee(payload) {
+  return { type: REF_EMPLOYEE, payload: payload };
 }
 
 // REDUCER LOGIC
@@ -53,6 +60,9 @@ export function EmployeeReducer(state = initState, action) {
     case EMPLOYEE_GET_BY_ID:
       // TODO
       return state;
+
+    case REF_EMPLOYEE:
+      return { ...state, refemp: action.payload };
 
     default:
       return state;
