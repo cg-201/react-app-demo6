@@ -12,6 +12,9 @@ export function EmployeeUpsert() {
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
 
+  const [successOperation, setSuccessOperation] = useState(false);
+  const [errorOperation, setErrorOperation] = useState(false);
+
   const updateFirstName = (e) => setFirstName(e.target.value);
   const updateLastName = (e) => setLastName(e.target.value);
   const updateUserName = (e) => setUserName(e.target.value);
@@ -35,6 +38,9 @@ export function EmployeeUpsert() {
       })
     );
 
+    // sucess
+    setSuccessOperation(true);
+
     // reset the form
     setFirstName("");
     setLastName("");
@@ -49,6 +55,11 @@ export function EmployeeUpsert() {
       <div className="col-3 col-md-3 d-none d-md-block"></div>
       <div className="col-12 col-md-6">
         <h3 className="alert alert-secondary">Crate Employee</h3>
+
+        {/** BELOW THESE TWO TAGS MUST BE CONDITIOANL */}
+        {successOperation && (
+          <div className="alert alert-success">Opeation Success</div>
+        )}
 
         <div className="mb-1">
           <input
