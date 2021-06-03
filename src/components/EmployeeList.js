@@ -1,8 +1,20 @@
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteEmployeeAction } from "../redux/EmpoyeeReducer";
 
 export function EmployeeList() {
   const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   console.log(state);
+
+  const [successOperation, setSuccessOperation] = useState(false);
+
+  const deleteEmployee = (item, index) => {
+    dispatch(deleteEmployeeAction(index));
+
+    setSuccessOperation(true);
+    setTimeout(() => setSuccessOperation(false), 2000);
+  };
 
   return (
     <div className="row">
@@ -10,8 +22,12 @@ export function EmployeeList() {
       <div className="col-12 col-md-8">
         <h3 className="alert alert-secondary">Employee List</h3>
 
-        <table class="table">
-          <thead class="thead-dark">
+        {successOperation && (
+          <div className="alert alert-success">Opeation Success</div>
+        )}
+
+        <table className="table">
+          <thead className="thead-dark">
             <tr>
               <th scope="col">#ID</th>
               <th scope="col">USERNAME</th>
@@ -22,7 +38,7 @@ export function EmployeeList() {
             </tr>
           </thead>
           <tbody>
-            {state.employee.list.map((item, index) => (
+            {[...state.employee.list].map((item, index) => (
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
                 <td>{item.userName}</td>
@@ -35,6 +51,7 @@ export function EmployeeList() {
                   <input
                     type="button"
                     value="Delete"
+                    onClick={() => deleteEmployee(item, index)}
                     className="btn btn-link text-danger"
                   />
                 </td>

@@ -17,19 +17,19 @@ export function createEmployeeAction(payload) {
 }
 
 export function updateEmployeeAction(payload) {
-  return { type: EMPLOYEE_CREATE, payload: payload };
+  return { type: EMPLOYEE_UPDATE, payload: payload };
 }
 
 export function deleteEmployeeAction(payload) {
-  return { type: EMPLOYEE_CREATE, payload: payload };
+  return { type: EMPLOYEE_DELETE, payload: payload };
 }
 
 export function getAllEmployeeAction(payload) {
-  return { type: EMPLOYEE_CREATE, payload: payload };
+  return { type: EMPLOYEE_GET_ALL, payload: payload };
 }
 
 export function getByIdEmployeeAction(payload) {
-  return { type: EMPLOYEE_CREATE, payload: payload };
+  return { type: EMPLOYEE_GET_BY_ID, payload: payload };
 }
 
 // REDUCER LOGIC
@@ -42,7 +42,11 @@ export function EmployeeReducer(state = initState, action) {
       return state;
     case EMPLOYEE_DELETE:
       // TODO
-      return state;
+      const oldList = state.list;
+      oldList.splice(action.payload, 1);
+      console.log("OL", oldList);
+
+      return { ...state, list: [...oldList] };
     case EMPLOYEE_GET_ALL:
       // TODO
       return state;
