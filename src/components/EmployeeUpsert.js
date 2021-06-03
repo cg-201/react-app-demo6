@@ -1,4 +1,49 @@
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { createEmployeeAction } from "../redux/EmpoyeeReducer";
+
 export function EmployeeUpsert() {
+  const dispatch = useDispatch();
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
+
+  const updateFirstName = (e) => setFirstName(e.target.value);
+  const updateLastName = (e) => setLastName(e.target.value);
+  const updateUserName = (e) => setUserName(e.target.value);
+  const updatePassword = (e) => setPassword(e.target.value);
+  const updateEmail = (e) => setEmail(e.target.value);
+  const updateMobile = (e) => setMobile(e.target.value);
+
+  const addEmployee = (e) => {
+    e.preventDefault();
+    console.log(firstName, lastName, userName, password, email, mobile);
+
+    // THIS IS REDUX ACTION CALLING
+    dispatch(
+      createEmployeeAction({
+        firstName,
+        lastName,
+        userName,
+        email,
+        password,
+        mobile,
+      })
+    );
+
+    // reset the form
+    setFirstName("");
+    setLastName("");
+    setUserName("");
+    setPassword("");
+    setEmail("");
+    setMobile("");
+  };
+
   return (
     <div className="row">
       <div className="col-3 col-md-3 d-none d-md-block"></div>
@@ -8,6 +53,8 @@ export function EmployeeUpsert() {
         <div className="mb-1">
           <input
             type="text"
+            value={firstName}
+            onChange={(e) => updateFirstName(e)}
             className="form-control"
             placeholder="Enter First name"
           />
@@ -16,6 +63,8 @@ export function EmployeeUpsert() {
         <div className="mb-1">
           <input
             type="text"
+            value={lastName}
+            onChange={(e) => updateLastName(e)}
             className="form-control"
             placeholder="Enter Lastname"
           />
@@ -24,6 +73,8 @@ export function EmployeeUpsert() {
         <div className="mb-1">
           <input
             type="text"
+            value={userName}
+            onChange={(e) => updateUserName(e)}
             className="form-control"
             placeholder="Enter Username"
           />
@@ -32,6 +83,8 @@ export function EmployeeUpsert() {
         <div className="mb-1">
           <input
             type="password"
+            value={password}
+            onChange={(e) => updatePassword(e)}
             className="form-control"
             placeholder="Enter Password"
           />
@@ -40,6 +93,8 @@ export function EmployeeUpsert() {
         <div className="mb-1">
           <input
             type="text"
+            value={email}
+            onChange={(e) => updateEmail(e)}
             className="form-control"
             placeholder="Enter Email"
           />
@@ -48,6 +103,8 @@ export function EmployeeUpsert() {
         <div className="mb-1">
           <input
             type="text"
+            value={mobile}
+            onChange={(e) => updateMobile(e)}
             className="form-control"
             placeholder="Enter Mobile"
           />
@@ -58,6 +115,7 @@ export function EmployeeUpsert() {
             type="button"
             className="btn btn-secondary w-100"
             value="Add Employee"
+            onClick={(e) => addEmployee(e)}
           />
         </div>
       </div>

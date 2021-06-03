@@ -1,5 +1,4 @@
 const initState = {
-  employee: {},
   list: [],
 
   sampleList: ["Delhi", "Kolkata", "Chennai", "Mumbai"],
@@ -37,8 +36,7 @@ export function getByIdEmployeeAction(payload) {
 export function EmployeeReducer(state = initState, action) {
   switch (action.type) {
     case EMPLOYEE_CREATE:
-      // TODO
-      return state;
+      return { ...state, list: [action.payload, ...state.list] };
     case EMPLOYEE_UPDATE:
       // TODO
       return state;
