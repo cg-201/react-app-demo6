@@ -14,7 +14,7 @@ const EMPLOYEE_GET_BY_ID = "EMPLOYEE_GET_BY_ID";
 
 const REF_EMPLOYEE = "REF_EMPLOYEE";
 
-// ACTIONS ::
+// ACTIONS :: COmponents are interacting with this action
 export function createEmployeeAction(payload) {
   return { type: EMPLOYEE_CREATE, payload: payload };
 }
