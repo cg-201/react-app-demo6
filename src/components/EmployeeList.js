@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { deleteEmployeeAction } from "../redux/EmpoyeeReducer";
 
 export function EmployeeList() {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
+  const history = useHistory();
   console.log(state);
 
   const [successOperation, setSuccessOperation] = useState(false);
@@ -14,6 +16,10 @@ export function EmployeeList() {
 
     setSuccessOperation(true);
     setTimeout(() => setSuccessOperation(false), 2000);
+  };
+
+  const updateEmployee = () => {
+    history.push("/create-employee");
   };
 
   return (
@@ -46,7 +52,12 @@ export function EmployeeList() {
                 <td>{item.email}</td>
                 <td>{item.mobile}</td>
                 <td>
-                  <input type="button" value="Edit" className="btn btn-link" />{" "}
+                  <input
+                    type="button"
+                    onClick={() => updateEmployee()}
+                    value="Edit"
+                    className="btn btn-link"
+                  />{" "}
                   /
                   <input
                     type="button"
