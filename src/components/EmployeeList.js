@@ -21,7 +21,7 @@ export function EmployeeList() {
   }, []);
 
   const deleteEmployee = (item, index) => {
-    dispatch(deleteEmployeeAction(index));
+    dispatch(deleteEmployeeAction(item));
 
     setSuccessOperation(true);
     setTimeout(() => setSuccessOperation(false), 2000);

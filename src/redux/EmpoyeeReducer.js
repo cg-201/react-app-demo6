@@ -41,7 +41,16 @@ export function updateEmployeeAction(payload) {
 }
 
 export function deleteEmployeeAction(payload) {
-  return { type: EMPLOYEE_DELETE, payload: payload };
+  // return { type: EMPLOYEE_DELETE, payload: payload };
+
+  // redux thunk
+  return async (dispatch) => {
+    const url = `http://localhost:8080/api/employee/${payload.id}`;
+    await fetch(url, { method: "DELETE" });
+
+    // update the ui.
+    dispatch(getAllEmployeeAction());
+  };
 }
 
 export function getAllEmployeeAction(payload) {
