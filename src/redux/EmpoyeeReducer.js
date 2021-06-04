@@ -37,7 +37,21 @@ export function createEmployeeAction(payload) {
 }
 
 export function updateEmployeeAction(payload) {
-  return { type: EMPLOYEE_UPDATE, payload: payload };
+  // return { type: EMPLOYEE_UPDATE, payload: payload };
+  return async (dispatch) => {
+    // WE HV TO CALL THE SPRINT1 / SPRING BOOT
+    const url = `http://localhost:8080/api/employee/${payload.id}`;
+    const requestBody = { ...payload, age: 25 };
+
+    await fetch(url, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    });
+
+    // update the ui.
+    dispatch(updateRefEmployee({}));
+  };
 }
 
 export function deleteEmployeeAction(payload) {
