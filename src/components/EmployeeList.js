@@ -59,7 +59,7 @@ export function EmployeeList() {
           <tbody>
             {[...state.employee.list].map((item, index) => (
               <tr key={index}>
-                <th scope="row">{index + 1}</th>
+                <th scope="row">{item.id}</th>
                 <td>{item.userName}</td>
                 <td>{"********"}</td>
                 <td>{"****@gmail.com"}</td>
