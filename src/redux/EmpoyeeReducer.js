@@ -45,7 +45,21 @@ export function deleteEmployeeAction(payload) {
 }
 
 export function getAllEmployeeAction(payload) {
-  return { type: EMPLOYEE_GET_ALL, payload: payload };
+  // return { type: EMPLOYEE_GET_ALL, payload: payload };
+
+  // API CALL/BACKEND CALL / REDUX-THUNK IS THERE
+  return async (dispatch) => {
+    // WE HV TO CALL THE SPRINT1 / SPRING BOOT
+    const url = "http://localhost:8080/api/employee/";
+
+    // HTTP Client / POSTMAN / SWAGGER
+    const response = await fetch(url);
+    const employeList = await response.json();
+    console.log(employeList);
+
+    // Update the UI
+    dispatch({ type: EMPLOYEE_GET_ALL, payload: employeList });
+  };
 }
 
 export function getByIdEmployeeAction(payload) {
@@ -72,8 +86,8 @@ export function EmployeeReducer(state = initState, action) {
 
       return { ...state, list: [...oldList] };
     case EMPLOYEE_GET_ALL:
-      // TODO
-      return state;
+      // Update the list
+      return { ...state, list: action.payload };
     case EMPLOYEE_GET_BY_ID:
       // TODO
       return state;

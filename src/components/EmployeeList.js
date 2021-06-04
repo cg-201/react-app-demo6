@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import {
   deleteEmployeeAction,
+  getAllEmployeeAction,
   updateRefEmployee,
 } from "../redux/EmpoyeeReducer";
 
@@ -13,6 +14,11 @@ export function EmployeeList() {
   console.log(state);
 
   const [successOperation, setSuccessOperation] = useState(false);
+
+  // Used to Initialize :: READ THE DATA FROM API
+  useEffect(() => {
+    dispatch(getAllEmployeeAction());
+  }, []);
 
   const deleteEmployee = (item, index) => {
     dispatch(deleteEmployeeAction(index));
@@ -55,8 +61,8 @@ export function EmployeeList() {
               <tr key={index}>
                 <th scope="row">{index + 1}</th>
                 <td>{item.userName}</td>
-                <td>{item.password}</td>
-                <td>{item.email}</td>
+                <td>{"********"}</td>
+                <td>{"****@gmail.com"}</td>
                 <td>{item.mobile}</td>
                 <td>
                   <input
