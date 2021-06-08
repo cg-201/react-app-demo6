@@ -44,6 +44,12 @@ export function EmployeeUpsert() {
       e.stopPropagation();
       formEL.current.classList.add("was-validated");
     } else {
+      // you can write custom valiadation logic here.
+      if (userName !== "rohit") {
+        alert("Only rohit allowd!");
+        return;
+      }
+
       // THIS IS REDUX ACTION CALLING
       dispatch(
         createEmployeeAction({
