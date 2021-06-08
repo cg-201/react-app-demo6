@@ -45,8 +45,10 @@ export function EmployeeUpsert() {
       formEL.current.classList.add("was-validated");
     } else {
       // you can write custom valiadation logic here.
-      if (userName !== "rohit") {
-        alert("Only rohit allowd!");
+      // username :: Speical Character validation
+      const re = /^[a-z0-9_\.]+$/;
+      if (!re.test(userName)) {
+        alert("Username Vlidation Fails");
         return;
       }
 
