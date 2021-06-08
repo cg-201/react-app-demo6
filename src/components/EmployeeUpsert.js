@@ -116,7 +116,7 @@ export function EmployeeUpsert() {
           <div className="alert alert-success">Opeation Success</div>
         )}
 
-        <form ref={formEL} class="needs-validation" novalidate>
+        <form ref={formEL} className="needs-validation" noValidate>
           <div className="mb-1">
             <input
               type="text"
@@ -153,7 +153,7 @@ export function EmployeeUpsert() {
           </div>
 
           <div className="mb-1">
-            <label for="validationCustom02">From Date</label>
+            <label htmlFor="validationCustom02">From Date</label>
 
             <input
               type="date"
@@ -166,7 +166,7 @@ export function EmployeeUpsert() {
           </div>
 
           <div className="mb-1">
-            <label for="validationCustom02">To Date</label>
+            <label htmlFor="validationCustom02">To Date</label>
 
             <input
               type="date"
