@@ -151,6 +151,30 @@ export function EmployeeUpsert() {
           </div>
 
           <div className="mb-1">
+            <label for="validationCustom02">From Date</label>
+
+            <input
+              type="date"
+              className="form-control"
+              placeholder="Enter Date"
+              required
+              min="2020-04-01"
+              max="2022-04-01"
+            />
+          </div>
+
+          <div className="mb-1">
+            <label for="validationCustom02">To Date</label>
+
+            <input
+              type="date"
+              className="form-control"
+              placeholder="Enter Date"
+              required
+            />
+          </div>
+
+          <div className="mb-1">
             <input
               type="password"
               value={password}
