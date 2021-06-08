@@ -83,6 +83,12 @@ export function EmployeeUpsert() {
     setMobile("");
   };
 
+  if (state.employee.loginAction === true) {
+    history.push("/after-login-page");
+    return;
+  }
+
+  // login page
   return (
     <div className="row">
       <div className="col-3 col-md-3 d-none d-md-block"></div>

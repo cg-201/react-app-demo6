@@ -3,9 +3,14 @@ const initState = {
 
   refemp: {},
   sampleList: ["Delhi", "Kolkata", "Chennai", "Mumbai"],
+
+  // will display the proper login page
+  loginAction: false,
 };
 
 // ACTION TYPES
+const LOGIN_ACTION = "LOGIN_ACTION";
+
 const EMPLOYEE_CREATE = "EMPLOYEE_CREATE";
 const EMPLOYEE_UPDATE = "EMPLOYEE_UPDATE";
 const EMPLOYEE_DELETE = "EMPLOYEE_DELETE";
@@ -13,6 +18,32 @@ const EMPLOYEE_GET_ALL = "EMPLOYEE_GET_ALL";
 const EMPLOYEE_GET_BY_ID = "EMPLOYEE_GET_BY_ID";
 
 const REF_EMPLOYEE = "REF_EMPLOYEE";
+
+// ACTIONS :: Login Action
+export function appLoginAction(payload) {
+  // MAKE SURE redux-thunk is installed.
+  return async (dispatch) => {
+    // WE HV TO CALL THE SPRINT1 / SPRING BOOT
+    const url = "http://localhost:8080/api/user/login";
+    const requestBody = { ...payload };
+
+    // HTTP Client
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    });
+
+    const user = await response.json();
+
+    if (user) {
+      // UPDATE THE UI
+      dispatch({ type: LOGIN_ACTION, payload: payload });
+    } else {
+      //
+    }
+  };
+}
 
 // ACTIONS :: COmponents are interacting with this action
 export function createEmployeeAction(payload) {
@@ -125,6 +156,9 @@ export function EmployeeReducer(state = initState, action) {
 
     case REF_EMPLOYEE:
       return { ...state, refemp: action.payload };
+
+    case LOGIN_ACTION:
+      return { ...state, loginAction: true };
 
     default:
       return state;
