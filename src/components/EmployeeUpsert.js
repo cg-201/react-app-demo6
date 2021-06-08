@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import {
@@ -9,6 +9,7 @@ import {
 export function EmployeeUpsert() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const formEL = useRef();
   const state = useSelector((state) => state);
   console.log(state);
 
@@ -31,34 +32,45 @@ export function EmployeeUpsert() {
 
   const addEmployee = (e) => {
     e.preventDefault();
+
+    // logs u can remove next three lines
     console.log(firstName, lastName, userName, password, email, mobile);
+    console.log(formEL);
+    console.log(formEL.current.checkValidity());
 
-    // THIS IS REDUX ACTION CALLING
-    dispatch(
-      createEmployeeAction({
-        firstName,
-        lastName,
-        userName,
-        email,
-        password,
-        mobile,
-      })
-    );
+    if (formEL.current.checkValidity() === false) {
+      // hanlde the false case
+      e.preventDefault();
+      e.stopPropagation();
+      formEL.current.classList.add("was-validated");
+    } else {
+      // THIS IS REDUX ACTION CALLING
+      dispatch(
+        createEmployeeAction({
+          firstName,
+          lastName,
+          userName,
+          email,
+          password,
+          mobile,
+        })
+      );
 
-    // A1 sucess
-    setSuccessOperation(true);
-    setTimeout(() => setSuccessOperation(false), 5000);
+      // A1 sucess
+      setSuccessOperation(true);
+      setTimeout(() => setSuccessOperation(false), 5000);
 
-    // A2: navigate to another page
-    // history.push("/list-employee");
+      // A2: navigate to another page
+      // history.push("/list-employee");
 
-    // reset the form
-    setFirstName("");
-    setLastName("");
-    setUserName("");
-    setPassword("");
-    setEmail("");
-    setMobile("");
+      // reset the form
+      setFirstName("");
+      setLastName("");
+      setUserName("");
+      setPassword("");
+      setEmail("");
+      setMobile("");
+    }
   };
 
   const updateEmployee = () => {
@@ -96,83 +108,91 @@ export function EmployeeUpsert() {
           <div className="alert alert-success">Opeation Success</div>
         )}
 
-        <div className="mb-1">
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => updateFirstName(e)}
-            className="form-control"
-            placeholder="Enter First name"
-          />
-        </div>
-
-        <div className="mb-1">
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => updateLastName(e)}
-            className="form-control"
-            placeholder="Enter Lastname"
-          />
-        </div>
-
-        <div className="mb-1">
-          <input
-            type="text"
-            value={userName}
-            onChange={(e) => updateUserName(e)}
-            className="form-control"
-            placeholder="Enter Username"
-          />
-        </div>
-
-        <div className="mb-1">
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => updatePassword(e)}
-            className="form-control"
-            placeholder="Enter Password"
-          />
-        </div>
-
-        <div className="mb-1">
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => updateEmail(e)}
-            className="form-control"
-            placeholder="Enter Email"
-          />
-        </div>
-
-        <div className="mb-1">
-          <input
-            type="text"
-            value={mobile}
-            onChange={(e) => updateMobile(e)}
-            className="form-control"
-            placeholder="Enter Mobile"
-          />
-        </div>
-
-        <div className="mb-1">
-          {state.employee.refemp.id ? (
+        <form ref={formEL} class="needs-validation" novalidate>
+          <div className="mb-1">
             <input
-              type="button"
-              className="btn btn-secondary w-100"
-              value="Update Employee"
-              onClick={() => updateEmployee()}
+              type="text"
+              value={firstName}
+              onChange={(e) => updateFirstName(e)}
+              className="form-control"
+              placeholder="Enter First name"
+              required
             />
-          ) : (
+          </div>
+
+          <div className="mb-1">
             <input
-              type="button"
-              className="btn btn-secondary w-100"
-              value="Add Employee"
-              onClick={(e) => addEmployee(e)}
+              type="text"
+              value={lastName}
+              onChange={(e) => updateLastName(e)}
+              className="form-control"
+              placeholder="Enter Lastname"
+              required
             />
-          )}
-        </div>
+          </div>
+
+          <div className="mb-1">
+            <input
+              type="text"
+              value={userName}
+              onChange={(e) => updateUserName(e)}
+              className="form-control"
+              placeholder="Enter Username"
+              required
+            />
+          </div>
+
+          <div className="mb-1">
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => updatePassword(e)}
+              className="form-control"
+              placeholder="Enter Password"
+              required
+            />
+          </div>
+
+          <div className="mb-1">
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => updateEmail(e)}
+              className="form-control"
+              placeholder="Enter Email"
+              required
+            />
+          </div>
+
+          <div className="mb-1">
+            <input
+              type="text"
+              value={mobile}
+              onChange={(e) => updateMobile(e)}
+              className="form-control"
+              placeholder="Enter Mobile"
+              required
+            />
+          </div>
+
+          <div className="mb-1">
+            {state.employee.refemp.id ? (
+              <input
+                type="button"
+                className="btn btn-secondary w-100"
+                value="Update Employee"
+                onClick={() => updateEmployee()}
+              />
+            ) : (
+              <input
+                type="button"
+                className="btn btn-secondary w-100"
+                value="Add Employee"
+                onClick={(e) => addEmployee(e)}
+              />
+            )}
+          </div>
+        </form>
       </div>
       <div className="col-3 col-md-3  d-none d-md-block"></div>
     </div>
