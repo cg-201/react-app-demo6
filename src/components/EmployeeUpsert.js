@@ -11,7 +11,6 @@ export function EmployeeUpsert() {
   const history = useHistory();
   const formEL = useRef();
   const state = useSelector((state) => state);
-  console.log(state);
 
   const [firstName, setFirstName] = useState(state.employee.refemp.firstName);
   const [lastName, setLastName] = useState(state.employee.refemp.lastName);
