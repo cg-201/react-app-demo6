@@ -116,6 +116,8 @@ export function EmployeeUpsert() {
               onChange={(e) => updateFirstName(e)}
               className="form-control"
               placeholder="Enter First name"
+              minLength="4"
+              maxLength="8"
               required
             />
           </div>
@@ -155,7 +157,7 @@ export function EmployeeUpsert() {
 
           <div className="mb-1">
             <input
-              type="text"
+              type="email"
               value={email}
               onChange={(e) => updateEmail(e)}
               className="form-control"
@@ -166,11 +168,12 @@ export function EmployeeUpsert() {
 
           <div className="mb-1">
             <input
-              type="text"
+              type="number"
               value={mobile}
               onChange={(e) => updateMobile(e)}
               className="form-control"
               placeholder="Enter Mobile"
+              max="9999999999"
               required
             />
           </div>
