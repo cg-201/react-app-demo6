@@ -84,11 +84,18 @@ export function getAllEmployeeAction(payload) {
       const employeList = await response.json();
       console.log(employeList);
 
+      // we are getting the data server
+      localStorage.setItem("employeList", JSON.stringify(employeList));
+
       // Update the UI
       dispatch({ type: EMPLOYEE_GET_ALL, payload: employeList });
     } catch (error) {
       console.log(error);
       dispatch({ type: SERVER_ERROR, payload: true });
+
+      const localEmployeeStringList = localStorage.getItem("employeList");
+      const localEmployeeList = JSON.parse(localEmployeeStringList);
+      dispatch({ type: EMPLOYEE_GET_ALL, payload: localEmployeeList });
     }
   };
 }

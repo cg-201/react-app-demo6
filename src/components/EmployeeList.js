@@ -49,7 +49,7 @@ export function EmployeeList() {
           <h3 className="alert alert-secondary">Employee List</h3>
 
           {state.employee.error && (
-            <div className="alert alert-danger">Sever Side Error</div>
+            <div className="alert alert-danger">Sever is offline</div>
           )}
 
           {successOperation && (
