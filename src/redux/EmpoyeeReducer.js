@@ -2,6 +2,8 @@ const initState = {
   list: [],
 
   refemp: {},
+  error: false,
+
   sampleList: ["Delhi", "Kolkata", "Chennai", "Mumbai"],
 };
 
@@ -11,6 +13,7 @@ const EMPLOYEE_UPDATE = "EMPLOYEE_UPDATE";
 const EMPLOYEE_DELETE = "EMPLOYEE_DELETE";
 const EMPLOYEE_GET_ALL = "EMPLOYEE_GET_ALL";
 const EMPLOYEE_GET_BY_ID = "EMPLOYEE_GET_BY_ID";
+const SERVER_ERROR = "SERVER_ERROR";
 
 const REF_EMPLOYEE = "REF_EMPLOYEE";
 
@@ -72,16 +75,21 @@ export function getAllEmployeeAction(payload) {
 
   // API CALL/BACKEND CALL / REDUX-THUNK IS THERE
   return async (dispatch) => {
-    // WE HV TO CALL THE SPRINT1 / SPRING BOOT
-    const url = "http://localhost:8080/api/employee/";
+    try {
+      // WE HV TO CALL THE SPRINT1 / SPRING BOOT
+      const url = "http://localhost:8080/api/employee/";
 
-    // HTTP Client / POSTMAN / SWAGGER
-    const response = await fetch(url);
-    const employeList = await response.json();
-    console.log(employeList);
+      // HTTP Client / POSTMAN / SWAGGER
+      const response = await fetch(url);
+      const employeList = await response.json();
+      console.log(employeList);
 
-    // Update the UI
-    dispatch({ type: EMPLOYEE_GET_ALL, payload: employeList });
+      // Update the UI
+      dispatch({ type: EMPLOYEE_GET_ALL, payload: employeList });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: SERVER_ERROR, payload: true });
+    }
   };
 }
 
@@ -126,6 +134,8 @@ export function EmployeeReducer(state = initState, action) {
     case REF_EMPLOYEE:
       return { ...state, refemp: action.payload };
 
+    case SERVER_ERROR:
+      return { ...state, error: action.payload };
     default:
       return state;
   }

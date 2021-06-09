@@ -48,6 +48,10 @@ export function EmployeeList() {
         <div className="col-12 col-md-8">
           <h3 className="alert alert-secondary">Employee List</h3>
 
+          {state.employee.error && (
+            <div className="alert alert-danger">Sever Side Error</div>
+          )}
+
           {successOperation && (
             <div className="alert alert-success">Opeation Success</div>
           )}
