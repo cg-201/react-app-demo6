@@ -27,7 +27,10 @@ export function EmployeeUpsert() {
   const updateUserName = (e) => setUserName(e.target.value);
   const updatePassword = (e) => setPassword(e.target.value);
   const updateEmail = (e) => setEmail(e.target.value);
-  const updateMobile = (e) => setMobile(e.target.value);
+  const updateMobile = (e) => {
+    const value = e.target.value.replace(/[^0-9.]/g, "");
+    setMobile(value);
+  };
 
   const addEmployee = (e) => {
     e.preventDefault();
@@ -199,12 +202,13 @@ export function EmployeeUpsert() {
 
           <div className="mb-1">
             <input
-              type="number"
+              type="text"
               value={mobile}
               onChange={(e) => updateMobile(e)}
               className="form-control"
               placeholder="Enter Mobile"
-              max="9999999999"
+              pattern="[\d*]{10}"
+              maxLength="10"
               required
             />
           </div>
